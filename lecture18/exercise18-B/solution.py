@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+
+# Exercise 18-B
+
+import collections
+import sys
+
+# Constants
+
+BLUE = 0
+RED  = 1
+
+# Read Graph
+
+def read_graph(n, m):
+    ''' Construct adjacency list '''
+    g = collections.defaultdict(list)
+
+    for _ in range(m):
+        s, t = map(int, sys.stdin.readline().split())
+        g[s].append(t)
+        g[t].append(s)
+
+    return g
+
+# Determine if Bicolorable
+
+def is_bicolorable(g):
+    ''' Determines if graphis bicolorable by walking it recursively. '''
+    return walk(g, list(g.keys())[0], BLUE, {})
+
+def walk(g, n, color, visited):
+    ''' Recursively walk graph and verifying that the node has the appropriate
+    color. '''
+
+    # We have already visited this node, so verify we still have the same
+    # color.
+    if n in visited:
+        return visited[n] == color
+
+    # Visit each neighbor recursively with the alternate color and check that
+    # they are colorable.
+    for v in g[n]:
+        # Make sure we store the color when we recurse.
+        if not walk(g, v, (color + 1) % 2, visited | {n: color}):
+            return False
+
+    return True
+
+def walk1(g, n, color, visited):
+    ''' Iteratively walk graph and verifying that the node has the appropriate
+    color. '''
+    # Establish frontier with initial node and color
+    frontier = [(n, color)]
+    
+    # While there are still nodes in the frontier...
+    while frontier:
+        # Pop one node from frontier
+        v, c = frontier.pop()
+
+        # Check if it has been visited
+        if v in visited:
+            if c != visited[v]:
+                return False
+            else:
+                continue
+
+        # Mark that it has been visited
+        visited[v] = c
+
+        # Add neighbors to frontier
+        for u in g[v]:
+            frontier.append((u, (c + 1) % 2))
+
+    return True
+
+# Main execution
+
+def main():
+    n, m = map(int, sys.stdin.readline().split())
+    while n and m:
+        g = read_graph(n, m)
+        if is_bicolorable(g):
+            print('BICOLORABLE')
+        else:
+            print('NOT BICOLORABLE')
+
+        n, m = map(int, sys.stdin.readline().split())
+
+if __name__ == '__main__':
+    main()
