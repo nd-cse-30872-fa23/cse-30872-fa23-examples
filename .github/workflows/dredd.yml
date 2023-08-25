@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest    
-    container: pbui/cse-30872-fa22-assignments
+    container: pbui/cse-30872-fa23-assignments
     steps:
     - uses: actions/checkout@v2
 
