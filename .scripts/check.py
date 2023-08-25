@@ -11,9 +11,9 @@ import yaml
 # Globals
 
 ASSIGNMENTS     = {}
-DREDD_QUIZ_URL  = 'https://dredd.h4x0r.space/quiz/cse-30872-fa22/'
+DREDD_QUIZ_URL  = 'https://dredd.h4x0r.space/quiz/cse-30872-fa23/'
 DREDD_CODE_SLUG = 'debug' if bool(os.environ.get('DEBUG', False)) else 'code'
-DREDD_CODE_URL  = f'https://dredd.h4x0r.space/{DREDD_CODE_SLUG}/cse-30872-fa22/'
+DREDD_CODE_URL  = f'https://dredd.h4x0r.space/{DREDD_CODE_SLUG}/cse-30872-fa23/'
 DREDD_CODE_MAX  = 6.0
 
 # Utilities
